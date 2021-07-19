@@ -17,7 +17,19 @@ In the future, I ***hope*** to;
 - [ ] Implement socket.io or a message broker like kafka
 - [ ] Extend on role structure
 
-To run the project, first make sure you're running a postgreSQL database, then create an ormconfig.json file.
+To run the project, use docker-compose to get the database up and running, by executing
+
+```bash
+docker-compose up -d
+```
+
+In the project root. Then make sure your database is configured correctly;
+
+```bash
+docker exec -it postgres_db psql -U postgres -d ktu_sosyal
+```
+
+Or, make sure you're running a postgreSQL database on your local machine, then create an ormconfig.json file.
 Here's an example below:
 ```json
 {
