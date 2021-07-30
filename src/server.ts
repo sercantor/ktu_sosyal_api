@@ -18,5 +18,5 @@ app.use(errorHandler);
 
 export const server = async () => {
   await app.listen(process.env.PORT);
-  console.log('Server started port 3500');
+  console.log(`Server started port ${process.env.PORT}`);
 };

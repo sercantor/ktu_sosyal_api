@@ -6,7 +6,7 @@ export const getHomepage = async (req, res, next) => {
     const { userId } = req.params;
     const user: User = await User.findOne({
       where: { id: userId },
-      relations: ['groups', 'groups.posts', 'groups.posts.replies', 'groups.posts.group', 'groups.posts.user'],
+      relations: ['groups', 'groups.posts', 'groups.posts.replies', 'groups.posts.group', 'groups.posts.auth'],
     });
     const { groups } = user;
     const posts: Post[] = [];

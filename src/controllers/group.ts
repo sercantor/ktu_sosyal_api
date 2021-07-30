@@ -38,7 +38,7 @@ export const getGroups = async (req, res, next) => {
       const user: User = await User.findOne({ where: { id: userId }, relations: ['groups'] });
       res.status(200).json(user.groups);
     } else {
-      const group: Group[] = await Group.find({ relations: ['users', 'posts', 'posts.replies', 'posts.user', 'admins'] });
+      const group: Group[] = await Group.find({ relations: ['users', 'posts', 'posts.replies', 'posts.auth', 'admins'] });
       res.status(200).json({ groups: group });
     }
   } catch (error) {
@@ -49,7 +49,7 @@ export const getGroups = async (req, res, next) => {
 export const getGroup = async (req, res, next) => {
   try {
     const { groupId } = req.params;
-    const group: Group = await Group.findOne({ where: { id: groupId }, relations: ['users', 'posts', 'posts.replies', 'posts.user', 'admins', 'posts.group'] });
+    const group: Group = await Group.findOne({ where: { id: groupId }, relations: ['users', 'posts', 'posts.replies', 'posts.auth', 'admins', 'posts.group'] });
     group?.posts?.sort((a, b) => {
       if (a.created > b.created) { return -1; }
 
@@ -118,7 +118,7 @@ export const joinGroup = async (req, res, next) => {
     const groupUsers = queryForGroupUsers.users;
     let userExists = false;
 
-    // check group's users if the user already exists, this probably should be done with a query, but I don't know SQL
+    // check group's users if the auth already exists, this probably should be done with a query, but I don't know SQL
     groupUsers.forEach((user) => {
       userExists = user.id == userId;
     });
